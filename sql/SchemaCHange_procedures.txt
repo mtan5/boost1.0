@@ -1,0 +1,5 @@
+1. Open Mysql Workbench
+2. Go To Database > Reverse Engineering
+3. MySql Model tab will open
+4. Go to Database > Synchronize with ANy Source
+5. Synchronize with Any source dialog box will open

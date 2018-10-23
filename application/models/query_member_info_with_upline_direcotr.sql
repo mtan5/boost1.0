@@ -1,0 +1,10 @@
+SELECT `tbl_member_info`.`first_name`, `tbl_member_info`.`last_name`, `tbl_member_info`.`mid_name`, `tbl_member_info`.`sin`, `tbl_member_info`.`dob`, `tbl_member_info`.`address`, `tbl_member_info`.`city`, `tbl_member_info`.`province`, `tbl_member_info`.`postal`, `tbl_member_info`.`contact`, `tbl_member_info`.`email`, `tbl_member_info`.`upline_id`, CONCAT(tbl_recruiter.first_name, ' ', tbl_recruiter.last_name) as recruiter, `tbl_member_info`.`director_id`, CONCAT(tbl_director.first_name, ' ', tbl_director.last_name) as director, `tbl_member_info`.`is_plead_guilty`, `tbl_member_info`.`is_bankrupt`, `tbl_member_info`.`is_legal_to_work`, `tbl_member_info`.`level_id`, `tbl_membership_level`.`membership_level`, `tbl_member_info`.`code`, `tbl_member_info`.`status`, `tbl_member_record_status`.`record_status`, `tbl_member_info`.`reg_date`, `tbl_member_info`.`membership_process`, `tbl_member_info`.`payment_id`, `tbl_member_trustee_details`.`trustee_name`, `tbl_member_trustee_details`.`trustee_address`, `tbl_member_trustee_details`.`location_bankruptcy`, `tbl_member_trustee_details`.`assignment_bankruptcy`, `tbl_member_trustee_details`.`statement_of_affairs`, `tbl_member_trustee_details`.`explanation` as `bankrupt_explanation`, `tbl_plead_guilty_explanation`.`explanation` 
+FROM 
+`tbl_member_info` 
+JOIN `tbl_member_record_status` ON `tbl_member_record_status`.`stat_tbl_id`=`tbl_member_info`.`status` 
+JOIN `tbl_membership_level` ON `tbl_membership_level`.`level_tbl_id`=`tbl_member_info`.`level_id` 
+LEFT JOIN `tbl_member_trustee_details` ON `tbl_member_trustee_details`.`member_id`=`tbl_member_info`.`id` 
+LEFT JOIN `tbl_plead_guilty_explanation` ON `tbl_plead_guilty_explanation`.`member_id`=`tbl_member_info`.`id` 
+LEFT JOIN (SELECT first_name, last_name, id from tbl_member_info WHERE level_id!=1) AS tbl_recruiter ON `tbl_recruiter`.`id`=`tbl_member_info`.`upline_id` 
+LEFT JOIN (SELECT first_name, last_name, id from tbl_member_info WHERE level_id=5) AS tbl_director ON `tbl_director`.`id`=`tbl_member_info`.`director_id` 
+WHERE `tbl_member_info`.`id` = '12'
